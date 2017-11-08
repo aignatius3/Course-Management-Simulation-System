@@ -1,4 +1,4 @@
-/**
+package Model; /**
  * Created by Ashwin Ignatius on 11/4/2017.
  */
 import java.io.BufferedReader;
