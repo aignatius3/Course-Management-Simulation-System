@@ -11,7 +11,10 @@ public class Scratchpad {
     private void processFileContents(String inputFileName, String[] tokens) {
         // REMOVE THESE PRINT STATEMENTS BEFORE SUBMISSION
         // display the contents (token) in the line selected for processing
-        switch (inputFileName) {
+        int cut = inputFileName.lastIndexOf("/");
+        String fileToParse = inputFileName.substring(cut + 1);
+
+        switch (fileToParse) {
             case "courses.csv":
                 System.out.println(tokens[0] + ", " + tokens[1] + ", " + tokens[2]);
                 break;
