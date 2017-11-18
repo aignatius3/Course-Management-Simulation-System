@@ -9,7 +9,7 @@ import java.util.List;
 public class Program {
     private String ID;
     private String name;
-    private List<Course> listings;
+    private List<Integer> listings;
 
     public Program(String ID, String name) {
         this.ID = ID;
@@ -33,7 +33,7 @@ public class Program {
         this.name = name;
     }
 
-    public void addListing(Course course) {
-        this.listings.add(course);
+    public void addListing(Integer courseID) {
+        this.listings.add(courseID);
     }
 }

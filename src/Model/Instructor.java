@@ -3,18 +3,20 @@ package Model;
 /**
  * Created by Ashwin Ignatius on 11/8/2017.
  */
-public class Instructor extends User {
+public class Instructor{
 
     private String ID;
+    private String name;
     private String officeHours;
-    private int coursesTeaching;
+    private String email;
+    private int courses;
 
-    public Instructor(String username, String password, String name, String emailAddress,
-                      String ID, String OfficeHours, int coursesTeaching) {
-        super(username, password, name, emailAddress);
+    public Instructor(String ID, String name, String officeHours, String email, int courses) {
         this.ID = ID;
+        this.name = name;
         this.officeHours = officeHours;
-        this.coursesTeaching = coursesTeaching;
+        this.email = email;
+        this.courses = courses;
     }
 
     public String getID() {
@@ -25,6 +27,14 @@ public class Instructor extends User {
         this.ID = ID;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getOfficeHours() {
         return officeHours;
     }
@@ -33,11 +43,19 @@ public class Instructor extends User {
         this.officeHours = officeHours;
     }
 
-    public int getCoursesTeaching() {
-        return coursesTeaching;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCoursesTeaching(int coursesTeaching) {
-        this.coursesTeaching = coursesTeaching;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getCourses() {
+        return courses;
+    }
+
+    public void setCourses(int courses) {
+        this.courses = courses;
     }
 }

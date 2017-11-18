@@ -7,22 +7,23 @@ import java.util.List;
 /**
  * Created by Ashwin Ignatius on 11/8/2017.
  */
-public class Student extends User {
+public class Student {
 
     private String ID;
+    private String name;
     private String address;
     private String phoneNumber;
     private String programID;
-    private List<HashMap<Course, String>> records;
+    private List<HashMap<String, String>> records;
 
-    public Student(String username, String password, String name, String emailAddress,
-                      String ID, String address, String phoneNumber, String programID) {
-        super(username, password, name, emailAddress);
+    public Student(String ID, String name, String address, String phoneNumber,
+                   String programID) {
         this.ID = ID;
+        this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.programID = programID;
-        this.records = new ArrayList<HashMap<Course, String>>();
+        this.records = records;
     }
 
     public String getID() {
@@ -31,6 +32,14 @@ public class Student extends User {
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -57,15 +66,15 @@ public class Student extends User {
         this.programID = programID;
     }
 
-    public List<HashMap<Course, String>> getRecords() {
+    public List<HashMap<String, String>> getRecords() {
         return records;
     }
 
-    public void setRecords(List<HashMap<Course, String>> records) {
+    public void setRecords(List<HashMap<String, String>> records) {
         this.records = records;
     }
 
-    public void addCourseRecord(Course course, String grade, int cycle) {
-        records.get(cycle).put(course, grade);
+    public void addCourseRecord(String courseId, String grade, int cycle) {
+        records.get(cycle).put(courseId, grade);
     }
 }
