@@ -9,9 +9,9 @@ public class Instructor{
     private String name;
     private String officeHours;
     private String email;
-    private int courses;
+    private String courses;
 
-    public Instructor(String ID, String name, String officeHours, String email, int courses) {
+    public Instructor(String ID, String name, String officeHours, String email, String courses) {
         this.ID = ID;
         this.name = name;
         this.officeHours = officeHours;
@@ -51,11 +51,11 @@ public class Instructor{
         this.email = email;
     }
 
-    public int getCourses() {
+    public String getCourses() {
         return courses;
     }
 
-    public void setCourses(int courses) {
+    public void setCourses(String courses) {
         this.courses = courses;
     }
 }

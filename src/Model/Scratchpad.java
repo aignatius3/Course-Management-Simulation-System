@@ -4,9 +4,33 @@ package Model; /**
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 public class Scratchpad {
-    public Scratchpad() { }
+    private HashMap<String, Course> courses;
+
+    private HashMap<String, Program> programs;
+
+    private HashMap<String, Instructor> instructors;
+
+    private HashMap<String, Student> students;
+
+    private int cycle;
+
+    private String year;
+
+    private String term;
+
+    public Scratchpad() {
+        this.courses = new HashMap<>();
+        this.programs = new HashMap<>();
+        this.instructors = new HashMap<>();
+        this.students = new HashMap<>();
+        this.cycle = 0;
+        this.year = Integer.toString(2017);
+        this.term = "Fall";
+    }
 
     private void processFileContents(String inputFileName, String[] tokens) {
         // REMOVE THESE PRINT STATEMENTS BEFORE SUBMISSION
@@ -16,29 +40,22 @@ public class Scratchpad {
 
         switch (fileToParse) {
             case "courses.csv":
-                System.out.println(tokens[0] + ", " + tokens[1] + ", " + tokens[2]);
+                courses.put(tokens[0], new Course(tokens[0], tokens[1], tokens[2]));
                 break;
             case "instructors.csv":
-                System.out.println(tokens[0] + ", " + tokens[1] + ", " + tokens[2] + ", " + tokens[3] + ", " + tokens[4]);
+                instructors.put(tokens[0], new Instructor(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]));
                 break;
             case "listings.csv":
-                System.out.println(tokens[0] + ", " + tokens[1]);
+                programs.get(tokens[0]).addListing(tokens[1]);
                 break;
             case "prereqs.csv":
-                System.out.println(tokens[0] + ", " + tokens[1]);
+                courses.get(tokens[0]).addPrereq(tokens[1]);
                 break;
             case "programs.csv":
-                System.out.println(tokens[0] + ", " + tokens[1]);
-                break;
-            case "records.csv":
-                System.out.println(tokens[0] + ", " + tokens[1] + ", " + tokens[2] + ", " + tokens[3] + ", " + tokens[4]);
-                break;
-            case "requests.csv":
-                System.out.println(tokens[0] + ", " + tokens[1]);
+                programs.put(tokens[0], new Program(tokens[0], tokens[1]));
                 break;
             case "students.csv":
-                System.out.println(tokens[0] + ", " + tokens[1] + ", " + tokens[2] + ", " + tokens[3] + ", " + tokens[4]);
-                break;
+                students.put(tokens[0], new Student(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]));                break;
             default:
                 System.out.println("# error: unknown input file name");
                 break;
@@ -77,5 +94,43 @@ public class Scratchpad {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void processRequests() {
+
+
+        cycle++;
+    }
+
+    public HashMap<String, Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(HashMap<String, Course> courses) {
+        this.courses = courses;
+    }
+
+    public HashMap<String, Program> getPrograms() {
+        return programs;
+    }
+
+    public void setPrograms(HashMap<String, Program> programs) {
+        this.programs = programs;
+    }
+
+    public HashMap<String, Instructor> getInstructors() {
+        return instructors;
+    }
+
+    public void setInstructors(HashMap<String, Instructor> instructors) {
+        this.instructors = instructors;
+    }
+
+    public HashMap<String, Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(HashMap<String, Student> students) {
+        this.students = students;
     }
 }

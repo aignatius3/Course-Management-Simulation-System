@@ -7,23 +7,23 @@ import java.util.List;
  * Created by Ashwin Ignatius on 11/8/2017.
  */
 public class Course {
-    private int courseID;
+    private String courseID;
     private String shortName;
-    private int cost;
+    private String cost;
     private List<String> prereqs;
 
-    public Course(int courseID, String shortName, int cost) {
+    public Course(String courseID, String shortName, String cost) {
         this.courseID = courseID;
         this.shortName = shortName;
         this.cost = cost;
         this.prereqs = new ArrayList<>();
     }
 
-    public int getCourseID() {
+    public String getCourseID() {
         return courseID;
     }
 
-    public void setCourseID(int courseID) {
+    public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
 
@@ -35,20 +35,16 @@ public class Course {
         this.shortName = shortName;
     }
 
-    public int getCost() {
+    public String getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(String cost) {
         this.cost = cost;
     }
 
     public List<String> getPrereqs() {
         return prereqs;
-    }
-
-    public void setPrereqs(List<String> prereqs) {
-        this.prereqs = prereqs;
     }
 
     public void addPrereq(String courseID) {

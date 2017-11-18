@@ -70,10 +70,6 @@ public class Student {
         return records;
     }
 
-    public void setRecords(List<HashMap<String, String>> records) {
-        this.records = records;
-    }
-
     public void addCourseRecord(String courseId, String grade, int cycle) {
         records.get(cycle).put(courseId, grade);
     }
