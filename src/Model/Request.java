@@ -4,27 +4,27 @@ package Model;
  * Created by Ashwin Ignatius on 11/8/2017.
  */
 public class Request {
-    private Student student;
-    private Course course;
+    private String studentID;
+    private String courseID;
 
-    public Request(Student student, Course course) {
-        this.student = student;
-        this.course = course;
+    public Request(String studentID, String courseID) {
+        this.studentID = studentID;
+        this.courseID = courseID;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getStudentID() {
+        return studentID;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
     }
 
-    public Course getCourse() {
-        return course;
+    public String getCourseID() {
+        return courseID;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
     }
 }

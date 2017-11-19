@@ -1,11 +1,11 @@
-package Model; /**
+package Model;
+/**
  * Created by Ashwin Ignatius on 11/4/2017.
  */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Scratchpad {
     private HashMap<String, Course> courses;
@@ -16,11 +16,15 @@ public class Scratchpad {
 
     private HashMap<String, Student> students;
 
+    private List<Request> requests;
+
     private int cycle;
 
     private String year;
 
     private String term;
+
+    private Set coursesRequested;
 
     public Scratchpad() {
         this.courses = new HashMap<>();
@@ -30,6 +34,8 @@ public class Scratchpad {
         this.cycle = 0;
         this.year = Integer.toString(2017);
         this.term = "Fall";
+        this.requests = new ArrayList<>();
+        this.coursesRequested = new HashSet();
     }
 
     private void processFileContents(String inputFileName, String[] tokens) {
@@ -96,10 +102,41 @@ public class Scratchpad {
         }
     }
 
+    public void assignInstructors() {
+
+    }
+
     public void processRequests() {
+        String fileToParse = "./TestCases/test_case1/requests"+ Integer.toString(cycle) + ".csv";
+        BufferedReader fileReader = null;
 
+        // Delimiter used in CSV file
+        final String DELIMITER = ",";
+        try {
+            String line = "";
+            // Create the file reader
+            fileReader = new BufferedReader(new FileReader(fileToParse));
 
+            // Read the file line by line
+            while ((line = fileReader.readLine()) != null) {
+                // Get all tokens available in line
+                String[] tokens = line.split(DELIMITER);
+
+                requests.add(new Request(tokens[0], tokens[1]));
+                coursesRequested.add(tokens[0]);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         cycle++;
+        System.out.println(cycle);
     }
 
     public HashMap<String, Course> getCourses() {
