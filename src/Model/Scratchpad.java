@@ -16,13 +16,15 @@ public class Scratchpad {
 
     private HashMap<String, Student> students;
 
+    private HashMap<String, String> coursesTaught;
+
     private List<Request> requests;
 
     private int cycle;
 
     private String year;
 
-    private String term;
+    private String[] terms;
 
     private Set coursesRequested;
 
@@ -31,9 +33,10 @@ public class Scratchpad {
         this.programs = new HashMap<>();
         this.instructors = new HashMap<>();
         this.students = new HashMap<>();
+        this.coursesTaught = new HashMap<>();
         this.cycle = 0;
         this.year = Integer.toString(2017);
-        this.term = "Fall";
+        this.terms = new String[]{"Winter", "Spring", "Summer", "Fall"};
         this.requests = new ArrayList<>();
         this.coursesRequested = new HashSet();
     }
@@ -103,7 +106,20 @@ public class Scratchpad {
     }
 
     public void assignInstructors() {
+        if (cycle == 0) {
+            int numInstructors = instructors.keySet().size();
+            int numCourses = courses.keySet().size();
+            for (int i = 0; i < numInstructors; i++) {
+                Object instKey = instructors.keySet().toArray()[i];
+                int index = (int) Math.floor(Math.random() * (numCourses + 1));
+                Object courseKey = courses.keySet().toArray()[index];
+                coursesTaught.put(courses.get(courseKey).getCourseID(),
+                        instructors.get(instKey).getID());
+                System.out.println(courses.get(courseKey).getCourseID() + " " +
+                        instructors.get(instKey).getID());
+            }
 
+        }
     }
 
     public void processRequests() {

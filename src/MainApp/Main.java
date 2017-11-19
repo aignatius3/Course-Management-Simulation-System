@@ -15,7 +15,7 @@ public class Main {
         for (String nextFileName : managementSystemFiles) {
             managementConsole.uploadFileContents(nextFileName);
         }
-        managementConsole.processRequests();
+        managementConsole.assignInstructors();
 
     }
 }
