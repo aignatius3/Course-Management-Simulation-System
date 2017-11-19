@@ -2,6 +2,8 @@ package Model;
 /**
  * Created by Ashwin Ignatius on 11/4/2017.
  */
+import jdk.nashorn.internal.ir.IfNode;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class Scratchpad {
 
     private String[] terms;
 
-    private Set coursesRequested;
+    private HashMap<String, Integer> coursesRequested;
 
     public Scratchpad() {
         this.courses = new HashMap<>();
@@ -38,7 +40,7 @@ public class Scratchpad {
         this.year = Integer.toString(2017);
         this.terms = new String[]{"Winter", "Spring", "Summer", "Fall"};
         this.requests = new ArrayList<>();
-        this.coursesRequested = new HashSet();
+        this.coursesRequested = new HashMap<>();
     }
 
     private void processFileContents(String inputFileName, String[] tokens) {
@@ -106,20 +108,20 @@ public class Scratchpad {
     }
 
     public void assignInstructors() {
+        System.out.println("Course , Instructor");
         if (cycle == 0) {
-            int numInstructors = instructors.keySet().size();
-            int numCourses = courses.keySet().size();
-            for (int i = 0; i < numInstructors; i++) {
-                Object instKey = instructors.keySet().toArray()[i];
-                int index = (int) Math.floor(Math.random() * (numCourses + 1));
+            int numInstructors = instructors.size();
+            int numCourses = courses.size();
+            for (Object key : instructors.keySet()) {
+                int index = (int) Math.floor(Math.random() * (numCourses));
                 Object courseKey = courses.keySet().toArray()[index];
                 coursesTaught.put(courses.get(courseKey).getCourseID(),
-                        instructors.get(instKey).getID());
-                System.out.println(courses.get(courseKey).getCourseID() + " " +
-                        instructors.get(instKey).getID());
+                        instructors.get(key).getID());
+                System.out.println(courses.get(courseKey).getCourseID() + "      , " +
+                        instructors.get(key).getID());
             }
-
         }
+        processRequests();
     }
 
     public void processRequests() {
@@ -139,7 +141,11 @@ public class Scratchpad {
                 String[] tokens = line.split(DELIMITER);
 
                 requests.add(new Request(tokens[0], tokens[1]));
-                coursesRequested.add(tokens[0]);
+                if (coursesRequested.containsKey(tokens[1])) {
+                    coursesRequested.put(tokens[1], coursesRequested.get(tokens[1]) + 1);
+                } else {
+                    coursesRequested.put(tokens[1], 1);
+                }
             }
 
         } catch (Exception e) {
@@ -151,8 +157,33 @@ public class Scratchpad {
                 e.printStackTrace();
             }
         }
-        cycle++;
-        System.out.println(cycle);
+
+        System.out.println("Course , Number of Requests");
+        for (Object key : coursesRequested.keySet()) {
+            System.out.println(key+ "       , " + coursesRequested.get(key));
+        }
+
+        reassignInstructor();
+    }
+
+    public void reassignInstructor() {
+        Scanner reader = new Scanner(System.in);  // Reading from System.in
+        System.out.println("Reassign 1 Instructor (CourseID, InstructorID): ");
+        String reassignment = reader.nextLine();
+        String[] tokens = reassignment.split(",");
+        reader.close();
+        if (reassignment != "") {
+            for (Object key: coursesTaught.keySet()) {
+                if (coursesTaught.get(key) == tokens[1]) {
+                    coursesTaught.remove(key);
+                    coursesTaught.put(tokens[0], tokens[1]);
+                }
+            }
+        }
+        System.out.println("Course , Instructor");
+        for (Object key :  coursesTaught.keySet()) {
+            System.out.println(key + "      , " + coursesTaught.get(key));
+        }
     }
 
     public HashMap<String, Course> getCourses() {
