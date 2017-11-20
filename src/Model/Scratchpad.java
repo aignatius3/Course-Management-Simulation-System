@@ -2,11 +2,9 @@ package Model;
 /**
  * Created by Ashwin Ignatius on 11/4/2017.
  */
-import jdk.nashorn.internal.ir.IfNode;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Scratchpad {
@@ -24,7 +22,7 @@ public class Scratchpad {
 
     private int cycle;
 
-    private String year;
+    private Integer year;
 
     private String[] terms;
 
@@ -37,7 +35,7 @@ public class Scratchpad {
         this.students = new HashMap<>();
         this.coursesTaught = new HashMap<>();
         this.cycle = 0;
-        this.year = Integer.toString(2017);
+        this.year = 2017;
         this.terms = new String[]{"Winter", "Spring", "Summer", "Fall"};
         this.requests = new ArrayList<>();
         this.coursesRequested = new HashMap<>();
@@ -124,10 +122,10 @@ public class Scratchpad {
                         instructors.get(key).getID());
             }
         }
-        processRequests();
+        loadRequests();
     }
 
-    public void processRequests() {
+    public void loadRequests() {
         String fileToParse = "./TestCases/test_case1/requests"+ Integer.toString(cycle) + ".csv";
         BufferedReader fileReader = null;
 
@@ -189,6 +187,55 @@ public class Scratchpad {
         for (Object key :  coursesTaught.keySet()) {
             System.out.println(key + "      , " + coursesTaught.get(key));
         }
+
+        processRequests();
+    }
+
+    public void processRequests() {
+        for (Request request: requests) {
+            if (coursesTaught.containsKey(request.getCourseID())) {
+                boolean granted = true;
+                String studentID = request.getStudentID();
+                Student student = students.get(studentID);
+                String courseID = request.getCourseID();
+                ArrayList<String> prereqs = (ArrayList<String>) courses.get(courseID).getPrereqs();
+                for (String id : prereqs) {
+                    boolean granted2 = false;
+                    for (HashMap record : student.getRecords()) {
+                        if (record.containsKey(id)) {
+                            granted2 = true;
+                        }
+                    }
+                    if (!granted2) {
+                        granted = granted2;
+                        break;
+                    }
+                }
+                if (granted) {
+                    if (student.getRecords().size() == cycle) {
+                        student.getRecords().add(new HashMap<>());
+                    }
+                    student.addCourseRecord(courseID, "A", cycle);
+
+                    String recordsFile = "./src/MainApp/Records.csv";
+
+                    try {
+                        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, true));
+
+                        String record = studentID + "," + courseID + "," + "A" + ","
+                                + Integer.toString(year) + "," + Integer.toString(cycle % 4 + 1) + "\n";
+                        System.out.print(record);
+                        fileWriter.write(record);
+                        fileWriter.close();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }
+        cycle++;
     }
 
     public HashMap<String, Course> getCourses() {

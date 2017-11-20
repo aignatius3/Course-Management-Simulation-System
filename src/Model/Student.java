@@ -23,7 +23,7 @@ public class Student {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.programID = programID;
-        this.records = records;
+        this.records = new ArrayList<>();
     }
 
     public String getID() {
