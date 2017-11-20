@@ -110,10 +110,13 @@ public class Scratchpad {
     public void assignInstructors() {
         System.out.println("Course , Instructor");
         if (cycle == 0) {
-            int numInstructors = instructors.size();
             int numCourses = courses.size();
+            Set<Integer> coursesNeeded = new HashSet<>();
             for (Object key : instructors.keySet()) {
                 int index = (int) Math.floor(Math.random() * (numCourses));
+                while (!coursesNeeded.add(index)) {
+                    index = (int) Math.floor(Math.random() * (numCourses));
+                }
                 Object courseKey = courses.keySet().toArray()[index];
                 coursesTaught.put(courses.get(courseKey).getCourseID(),
                         instructors.get(key).getID());
@@ -172,11 +175,13 @@ public class Scratchpad {
         String reassignment = reader.nextLine();
         String[] tokens = reassignment.split(",");
         reader.close();
-        if (reassignment != "") {
+        System.out.println(tokens[0]);
+        if (!reassignment.equals("")) {
             for (Object key: coursesTaught.keySet()) {
-                if (coursesTaught.get(key) == tokens[1]) {
+                if (coursesTaught.get(key).equals(tokens[1])) {
                     coursesTaught.remove(key);
                     coursesTaught.put(tokens[0], tokens[1]);
+                    break;
                 }
             }
         }
