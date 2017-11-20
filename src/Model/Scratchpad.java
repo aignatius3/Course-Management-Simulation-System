@@ -202,7 +202,8 @@ public class Scratchpad {
                 for (String id : prereqs) {
                     boolean granted2 = false;
                     for (HashMap record : student.getRecords()) {
-                        if (record.containsKey(id)) {
+                        if (record.containsKey(id) &&
+                                (record.get(id) == "A" || record.get(id) == "B" || record.get(id) == "C")) {
                             granted2 = true;
                         }
                     }
@@ -215,14 +216,16 @@ public class Scratchpad {
                     if (student.getRecords().size() == cycle) {
                         student.getRecords().add(new HashMap<>());
                     }
-                    student.addCourseRecord(courseID, "A", cycle);
+
+                    String grade = calculateGrade();
+                    student.addCourseRecord(courseID, grade, cycle);
 
                     String recordsFile = "./src/MainApp/Records.csv";
 
                     try {
                         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, true));
 
-                        String record = studentID + "," + courseID + "," + "A" + ","
+                        String record = studentID + "," + courseID + "," + grade + ","
                                 + Integer.toString(year) + "," + Integer.toString(cycle % 4 + 1) + "\n";
                         System.out.print(record);
                         fileWriter.write(record);
@@ -236,6 +239,21 @@ public class Scratchpad {
             }
         }
         cycle++;
+    }
+
+    public String calculateGrade() {
+        double probability = Math.random();
+        if (probability < 0.05) {
+            return "F";
+        } else if (probability < 0.1) {
+            return "D";
+        } else if (probability < 0.2) {
+            return "C";
+        } else if (probability < 0.65) {
+            return "B";
+        } else {
+            return "A";
+        }
     }
 
     public HashMap<String, Course> getCourses() {
