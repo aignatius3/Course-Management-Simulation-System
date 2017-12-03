@@ -12,6 +12,8 @@ import javafx.util.Callback;
 import model.Course;
 import model.Request;
 
+import java.io.File;
+
 /**
  * Created by Ashwin Ignatius on 12/3/2017.
  */
@@ -133,7 +135,7 @@ public class ReassignInstructorController extends Controller {
 
     public void initialize() {
         this.myScratchpad = Main.getScratchpad();
-        this.cycle = Main.getCycle();
+        this.cycle = myScratchpad.getCycle();
         termLabel.setText(myScratchpad.getTerms()[myScratchpad.getTerm()] + " " + Integer.toString(myScratchpad.getYear()));
 
         courseNumCol = new TableColumn("Course ID");
@@ -263,6 +265,7 @@ public class ReassignInstructorController extends Controller {
                 return;
             } else {
                 myScratchpad.reassignInstructor(s);
+                myApp.load(new File("../view/RequestResults.fxml"));
             }
         }
     }
@@ -270,6 +273,7 @@ public class ReassignInstructorController extends Controller {
     @FXML
     public void handleNoReassignPressed() {
         myScratchpad.processRequests();
+        myApp.load(new File("../view/RequestResults.fxml"));
     }
 
 }

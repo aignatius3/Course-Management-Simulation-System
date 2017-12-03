@@ -10,11 +10,11 @@ public class Controller {
 
     Main myApp;
     Scratchpad myScratchpad;
-    Integer cycle;
+    int cycle;
 
     public void setMainApp(Main myApp) {
         this.myApp = myApp;
         this.myScratchpad = Main.getScratchpad();
-        this.cycle = Main.getCycle();
+        this.cycle = myScratchpad.getCycle();
     }
 }

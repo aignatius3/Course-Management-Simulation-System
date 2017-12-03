@@ -53,7 +53,7 @@ public class AssignInstructorsController extends Controller {
 
     public void initialize() {
         this.myScratchpad = Main.getScratchpad();
-        this.cycle = Main.getCycle();
+        this.cycle = myScratchpad.getCycle();
         termLabel.setText(myScratchpad.getTerms()[myScratchpad.getTerm()] + " " + Integer.toString(myScratchpad.getYear()));
 
         courseNumCol = new TableColumn("ID");

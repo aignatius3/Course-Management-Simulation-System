@@ -17,13 +17,10 @@ import java.io.IOException;
 public class Main extends Application {
     private Stage window;
     private static Scratchpad scratchpad;
-    private static Integer cycle;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.scratchpad = new Scratchpad();
-        this.cycle = 0;
-        scratchpad.setCycle(this.cycle);
         window = primaryStage;
         load(new File("../view/Initialize.fxml"));
     }
@@ -47,10 +44,6 @@ public class Main extends Application {
 
     public static Scratchpad getScratchpad() {
         return scratchpad;
-    }
-
-    public static int getCycle() {
-        return cycle;
     }
 
     public static void main(String[] args) {

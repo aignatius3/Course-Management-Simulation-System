@@ -6,10 +6,12 @@ package model;
 public class Request {
     private String studentID;
     private String courseID;
+    private String result;
 
     public Request(String studentID, String courseID) {
         this.studentID = studentID;
         this.courseID = courseID;
+        this.result = "";
     }
 
     public String getStudentID() {
@@ -26,5 +28,13 @@ public class Request {
 
     public void setCourseID(String courseID) {
         this.courseID = courseID;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

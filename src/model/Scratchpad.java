@@ -152,11 +152,6 @@ public class Scratchpad {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Course , Number of Requests");
-        for (Object key : coursesRequested.keySet()) {
-            System.out.println(key+ "       , " + coursesRequested.get(key));
-        }
     }
 
     public void reassignInstructor(String reassignment) {
@@ -182,9 +177,14 @@ public class Scratchpad {
                 for (String id : prereqs) {
                     boolean granted2 = false;
                     for (HashMap record : student.getRecords()) {
-                        if (record.containsKey(id) &&
-                                (record.get(id) == "A" || record.get(id) == "B" || record.get(id) == "C")) {
-                            granted2 = true;
+                        if (record.containsKey(id)) {
+                                 if (record.get(id) == "A" || record.get(id) == "B" || record.get(id) == "C") {
+                                     granted2 = true;
+                                 } else {
+                                     request.setResult("Denied - Did not pass prerequisite");
+                                 }
+                        } else {
+                            request.setResult("Denied - Missing Prerequisite");
                         }
                     }
                     if (!granted2) {
@@ -193,6 +193,7 @@ public class Scratchpad {
                     }
                 }
                 if (granted) {
+                    request.setResult("Granted");
                     if (student.getRecords().size() == cycle) {
                         student.getRecords().add(new HashMap<>());
                     }
@@ -205,8 +206,7 @@ public class Scratchpad {
                     try {
                         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, true));
                         String record = studentID + "," + courseID + "," + grade + ","
-                                + Integer.toString(year) + "," + Integer.toString(term) + "\n";
-                        System.out.print(record);
+                                + Integer.toString(year) + "," + Integer.toString(term + 1) + "\n";
                         fileWriter.write(record);
                         fileWriter.close();
 
@@ -215,9 +215,10 @@ public class Scratchpad {
                     }
 
                 }
+            } else {
+                request.setResult("Denied - Instructor not assigned to course");
             }
         }
-        System.out.print("Done Processing");
         cycle++;
     }
 
@@ -294,5 +295,9 @@ public class Scratchpad {
 
     public HashMap<String, Integer> getCoursesRequested() {
         return coursesRequested;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
     }
 }
