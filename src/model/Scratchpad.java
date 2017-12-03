@@ -235,15 +235,6 @@ public class Scratchpad {
         }
     }
 
-    public void nextTerm() {
-        cycle = cycle + 1;
-        requests = new ArrayList();
-        coursesTaught = new HashMap();
-        coursesRequested = new HashMap();
-        year = 2017;
-        designateTerm();
-    }
-
     public String calculateGrade() {
         double probability = Math.random();
         if (probability < 0.05) {
@@ -256,6 +247,39 @@ public class Scratchpad {
             return "B";
         } else {
             return "A";
+        }
+    }
+
+    public void nextTerm() {
+        cycle = cycle + 1;
+        requests = new ArrayList();
+        coursesTaught = new HashMap();
+        coursesRequested = new HashMap();
+        year = 2017;
+        designateTerm();
+    }
+
+    public void restartSimulation() {
+        this.courses = new HashMap<>();
+        this.programs = new HashMap<>();
+        this.instructors = new HashMap<>();
+        this.students = new HashMap<>();
+        this.coursesTaught = new HashMap<>();
+        this.cycle = 0;
+        this.term = 3;
+        this.year = 2017;
+        this.terms = new String[]{"Winter", "Spring", "Summer", "Fall"};
+        this.requests = new ArrayList<>();
+        this.coursesRequested = new HashMap<>();
+
+        String recordsFile = "./src/fxapp/Records.csv";
+        try {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, false));
+            fileWriter.write("");
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

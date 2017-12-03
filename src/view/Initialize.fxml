@@ -20,7 +20,7 @@
       <Button fx:id="adminButton" layoutX="85.0" layoutY="181.0" mnemonicParsing="false" onAction="#handleAdminPressed" opacity="0.93" text="Administrator" />
       <Button fx:id="instButton" layoutX="250.0" layoutY="181.0" mnemonicParsing="false" text="Instructor" />
       <Button fx:id="studentButton" layoutX="372.0" layoutY="181.0" mnemonicParsing="false" text="Student" />
-      <Button fx:id="resumeSim" layoutX="85.0" layoutY="236.0" mnemonicParsing="false" opacity="0.0" text="Resume Simulation" />
+      <Button fx:id="resumeSim" layoutX="85.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleResumePressed" opacity="0.0" text="Resume Simulation" />
       <Button fx:id="restartSim" layoutX="85.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleRestartSimPressed" opacity="0.0" text="Start New Simulation" />
    </children>
 </AnchorPane>

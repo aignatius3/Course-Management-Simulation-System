@@ -81,7 +81,8 @@ public class RequestResultsController extends Controller {
 
     @FXML
     public void handlePauseClicked() {
-
+        myScratchpad.nextTerm();
+        myApp.load(new File("../view/Initialize.fxml"));
     }
 
     @FXML

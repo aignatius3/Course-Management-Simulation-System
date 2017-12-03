@@ -1,9 +1,11 @@
 package controller;
 
+import fxapp.Main;
 import javafx.fxml.FXML;
 
 import java.io.File;
 import javafx.scene.control.Button;
+import model.Scratchpad;
 
 /**
  * Created by Ashwin Ignatius on 12/2/2017.
@@ -24,6 +26,8 @@ public class InitializeController extends Controller {
 
     @FXML
     public void handleRestartSimPressed() {
+
+        Main.getScratchpad().restartSimulation();
         String[] managementSystemFiles = {"./TestCases/test_case1/courses.csv", "./TestCases/test_case1/instructors.csv",
                 "./TestCases/test_case1/students.csv", "./TestCases/test_case1/programs.csv",
                 "./TestCases/test_case1/listings.csv", "./TestCases/test_case1/prereqs.csv"};
@@ -32,6 +36,11 @@ public class InitializeController extends Controller {
         }
 
         myScratchpad.designateTerm();
+        myApp.load(new File("../view/AssignInstructors.fxml"));
+    }
+
+    @FXML
+    public void handleResumePressed() {
         myApp.load(new File("../view/AssignInstructors.fxml"));
     }
 }
