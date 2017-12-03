@@ -31,6 +31,7 @@ public class InitializeController extends Controller {
             myApp.getScratchpad().uploadFileContents(nextFileName);
         }
 
+        myScratchpad.designateTerm();
         myApp.load(new File("../view/AssignInstructors.fxml"));
     }
 }

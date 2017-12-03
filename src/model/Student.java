@@ -70,7 +70,7 @@ public class Student {
         return records;
     }
 
-    public void addCourseRecord(String courseId, String grade, int cycle) {
-        records.get(cycle).put(courseId, grade);
+    public void addCourseRecord(String courseId, String grade, int index) {
+        records.get(index).put(courseId, grade);
     }
 }

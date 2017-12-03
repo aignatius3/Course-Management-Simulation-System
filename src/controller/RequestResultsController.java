@@ -12,6 +12,8 @@ import javafx.util.Callback;
 import model.Instructor;
 import model.Request;
 
+import java.io.File;
+
 /**
  * Created by Ashwin Ignatius on 12/3/2017.
  */
@@ -75,5 +77,16 @@ public class RequestResultsController extends Controller {
         }
         requestResultsTable.setItems(requestsData);
         requestResultsTable.getColumns().addAll(courseNumCol, studentNumCol, resultCol);
+    }
+
+    @FXML
+    public void handlePauseClicked() {
+
+    }
+
+    @FXML
+    public void handleContinueClicked() {
+        myScratchpad.nextTerm();
+        myApp.load(new File("../view/AssignInstructors.fxml"));
     }
 }

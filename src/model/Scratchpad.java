@@ -105,13 +105,27 @@ public class Scratchpad {
                 e.printStackTrace();
             }
         }
-        if (cycle == 0 || cycle == 1) {
-            year = year;
-        } else {
-            year = year + ((cycle - 1) / 4) + 1;
+    }
 
+    public void designateTerm() {
+        if (cycle == 0 || cycle == 1) {
+            term = (term + cycle) % 4;
+        } else {
+            int temp = cycle % 4;
+            if (temp == 2) {
+                term = 1;
+            } else if (temp == 3) {
+                term = 2;
+            } else if (temp == 0) {
+                term = 3;
+            } else if (temp == 1) {
+                term = 0;
+            }
+            int temp2 = ((cycle - 2) / 4) + 1;
+
+            year = year + temp2;
         }
-        term = (term + cycle) % 4;
+        System.out.println(term + " " + year);
     }
 
     public void assignInstructors(Course course, Instructor instructor) {
@@ -167,6 +181,9 @@ public class Scratchpad {
     }
 
     public void processRequests() {
+        for (Object key: students.keySet()) {
+            students.get(key).getRecords().add(new HashMap<>());
+        }
         for (Request request: requests) {
             if (coursesTaught.containsKey(request.getCourseID())) {
                 boolean granted = true;
@@ -194,9 +211,6 @@ public class Scratchpad {
                 }
                 if (granted) {
                     request.setResult("Granted");
-                    if (student.getRecords().size() == cycle) {
-                        student.getRecords().add(new HashMap<>());
-                    }
 
                     String grade = calculateGrade();
                     student.addCourseRecord(courseID, grade, cycle);
@@ -219,7 +233,15 @@ public class Scratchpad {
                 request.setResult("Denied - Instructor not assigned to course");
             }
         }
-        cycle++;
+    }
+
+    public void nextTerm() {
+        cycle = cycle + 1;
+        requests = new ArrayList();
+        coursesTaught = new HashMap();
+        coursesRequested = new HashMap();
+        year = 2017;
+        designateTerm();
     }
 
     public String calculateGrade() {

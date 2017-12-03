@@ -14,7 +14,7 @@
             <Font name="Gill Sans MT" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="85.0" layoutY="329.0" mnemonicParsing="false" text="Pause Simulation" />
-      <Button layoutX="330.0" layoutY="329.0" mnemonicParsing="false" text="Continue Simulation" />
+      <Button layoutX="85.0" layoutY="329.0" mnemonicParsing="false" onAction="#handlePauseClicked" text="Pause Simulation" />
+      <Button layoutX="330.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleContinueClicked" text="Continue Simulation" />
    </children>
 </AnchorPane>
