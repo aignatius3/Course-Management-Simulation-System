@@ -211,7 +211,7 @@ public class Scratchpad implements Serializable {
                     String grade = calculateGrade();
                     student.addCourseRecord(courseID, grade, cycle);
 
-                    String recordsFile = "./src/fxapp/Records.csv";
+                    String recordsFile = "Records.csv";
 
                     try {
                         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, true));
@@ -268,7 +268,7 @@ public class Scratchpad implements Serializable {
         this.requests = new ArrayList<>();
         this.coursesRequested = new HashMap<>();
 
-        String recordsFile = "./src/fxapp/Records.csv";
+        String recordsFile = "Records.csv";
         try {
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, false));
             fileWriter.write("");
