@@ -6,7 +6,7 @@ package model;
 import java.io.*;
 import java.util.*;
 
-public class Scratchpad {
+public class Scratchpad implements Serializable {
     private HashMap<String, Course> courses;
 
     private HashMap<String, Program> programs;
@@ -44,8 +44,6 @@ public class Scratchpad {
     }
 
     private void processFileContents(String inputFileName, String[] tokens) {
-        // REMOVE THESE PRINT STATEMENTS BEFORE SUBMISSION
-        // display the contents (token) in the line selected for processing
         int cut = inputFileName.lastIndexOf("/");
         String fileToParse = inputFileName.substring(cut + 1);
 
@@ -74,10 +72,6 @@ public class Scratchpad {
     }
 
     public void uploadFileContents(String inputFileName) {
-        // REMOVE THIS PRINT STATEMENT BEFORE SUBMISSION
-        // display the name of the file selected for processing
-        System.out.println(inputFileName);
-
         // Input file which needs to be parsed
         String fileToParse = inputFileName;
         BufferedReader fileReader = null;
@@ -125,7 +119,6 @@ public class Scratchpad {
 
             year = year + temp2;
         }
-        System.out.println(term + " " + year);
     }
 
     public void assignInstructors(Course course, Instructor instructor) {
@@ -193,18 +186,21 @@ public class Scratchpad {
                 ArrayList<String> prereqs = (ArrayList<String>) courses.get(courseID).getPrereqs();
                 for (String id : prereqs) {
                     boolean granted2 = false;
+                    boolean granted3 = false;
                     for (HashMap record : student.getRecords()) {
                         if (record.containsKey(id)) {
-                                 if (record.get(id) == "A" || record.get(id) == "B" || record.get(id) == "C") {
+                            granted3 = true;
+                            if (record.get(id) == "A" || record.get(id) == "B" || record.get(id) == "C") {
                                      granted2 = true;
                                  } else {
                                      request.setResult("Denied - Did not pass prerequisite");
                                  }
-                        } else {
-                            request.setResult("Denied - Missing Prerequisite");
                         }
                     }
                     if (!granted2) {
+                        if (!granted3) {
+                            request.setResult("Denied - Missing Prerequisite");
+                        }
                         granted = granted2;
                         break;
                     }

@@ -26,7 +26,6 @@ public class InitializeController extends Controller {
 
     @FXML
     public void handleRestartSimPressed() {
-
         Main.getScratchpad().restartSimulation();
         String[] managementSystemFiles = {"./TestCases/test_case1/courses.csv", "./TestCases/test_case1/instructors.csv",
                 "./TestCases/test_case1/students.csv", "./TestCases/test_case1/programs.csv",
@@ -41,6 +40,7 @@ public class InitializeController extends Controller {
 
     @FXML
     public void handleResumePressed() {
+        Main.loadScratchpadFromBinary();
         myApp.load(new File("../view/AssignInstructors.fxml"));
     }
 }

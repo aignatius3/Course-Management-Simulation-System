@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by Ashwin Ignatius on 11/8/2017.
  */
-public class Request {
+public class Request implements Serializable {
     private String studentID;
     private String courseID;
     private String result;

@@ -82,12 +82,16 @@ public class RequestResultsController extends Controller {
     @FXML
     public void handlePauseClicked() {
         myScratchpad.nextTerm();
+        Main.saveScratchpadToBinary();
         myApp.load(new File("../view/Initialize.fxml"));
+
     }
 
     @FXML
     public void handleContinueClicked() {
         myScratchpad.nextTerm();
+        Main.saveScratchpadToBinary();
         myApp.load(new File("../view/AssignInstructors.fxml"));
+
     }
 }

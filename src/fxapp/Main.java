@@ -17,6 +17,8 @@ import java.io.IOException;
 public class Main extends Application {
     private Stage window;
     private static Scratchpad scratchpad;
+    private static final File scratchpadFile = new File("ScratchpadSaveState.dat");
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -44,6 +46,17 @@ public class Main extends Application {
 
     public static Scratchpad getScratchpad() {
         return scratchpad;
+    }
+
+    public static void saveScratchpadToBinary() {
+        Persistence p = new Persistence(scratchpad);
+        p.saveToBinary(scratchpadFile);
+    }
+
+    public static void loadScratchpadFromBinary() {
+        Persistence p = new Persistence(scratchpad);
+        p.loadFromBinary(scratchpadFile);
+        scratchpad = (Scratchpad) p.getBacking();
     }
 
     public static void main(String[] args) {

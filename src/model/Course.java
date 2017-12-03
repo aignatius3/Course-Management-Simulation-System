@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Ashwin Ignatius on 11/8/2017.
  */
-public class Course {
+public class Course implements Serializable {
     private String courseID;
     private String shortName;
     private String cost;

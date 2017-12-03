@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by Ashwin Ignatius on 11/8/2017.
  */
-public class Instructor{
+public class Instructor implements Serializable {
 
     private String ID;
     private String name;

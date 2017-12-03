@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Created by Ashwin Ignatius on 11/8/2017.
  */
-public class Student {
+public class Student implements Serializable {
 
     private String ID;
     private String name;
