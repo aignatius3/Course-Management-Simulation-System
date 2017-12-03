@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ public class Course {
     private String shortName;
     private String cost;
     private List<String> prereqs;
+
 
     public Course(String courseID, String shortName, String cost) {
         this.courseID = courseID;

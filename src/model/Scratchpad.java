@@ -1,10 +1,9 @@
-package Model;
+package model;
 /**
  * Created by Ashwin Ignatius on 11/4/2017.
  */
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Scratchpad {
@@ -22,6 +21,8 @@ public class Scratchpad {
 
     private int cycle;
 
+    private int term;
+
     private Integer year;
 
     private String[] terms;
@@ -35,6 +36,7 @@ public class Scratchpad {
         this.students = new HashMap<>();
         this.coursesTaught = new HashMap<>();
         this.cycle = 0;
+        this.term = 3;
         this.year = 2017;
         this.terms = new String[]{"Winter", "Spring", "Summer", "Fall"};
         this.requests = new ArrayList<>();
@@ -103,26 +105,18 @@ public class Scratchpad {
                 e.printStackTrace();
             }
         }
+        if (cycle == 0 || cycle == 1) {
+            year = year;
+        } else {
+            year = year + ((cycle - 1) / 4) + 1;
+
+        }
+        term = (term + cycle) % 4;
     }
 
-    public void assignInstructors() {
-        System.out.println("Course , Instructor");
-        if (cycle == 0) {
-            int numCourses = courses.size();
-            Set<Integer> coursesNeeded = new HashSet<>();
-            for (Object key : instructors.keySet()) {
-                int index = (int) Math.floor(Math.random() * (numCourses));
-                while (!coursesNeeded.add(index)) {
-                    index = (int) Math.floor(Math.random() * (numCourses));
-                }
-                Object courseKey = courses.keySet().toArray()[index];
-                coursesTaught.put(courses.get(courseKey).getCourseID(),
-                        instructors.get(key).getID());
-                System.out.println(courses.get(courseKey).getCourseID() + "      , " +
-                        instructors.get(key).getID());
-            }
-        }
-        loadRequests();
+    public void assignInstructors(Course course, Instructor instructor) {
+        coursesTaught.put(course.getCourseID(), instructor.getID());
+        //loadRequests();
     }
 
     public void loadRequests() {
@@ -163,31 +157,17 @@ public class Scratchpad {
         for (Object key : coursesRequested.keySet()) {
             System.out.println(key+ "       , " + coursesRequested.get(key));
         }
-
-        reassignInstructor();
     }
 
-    public void reassignInstructor() {
-        Scanner reader = new Scanner(System.in);  // Reading from System.in
-        System.out.println("Reassign 1 Instructor (CourseID, InstructorID): ");
-        String reassignment = reader.nextLine();
+    public void reassignInstructor(String reassignment) {
         String[] tokens = reassignment.split(",");
-        reader.close();
-        System.out.println(tokens[0]);
-        if (!reassignment.equals("")) {
-            for (Object key: coursesTaught.keySet()) {
-                if (coursesTaught.get(key).equals(tokens[1])) {
-                    coursesTaught.remove(key);
-                    coursesTaught.put(tokens[0], tokens[1]);
-                    break;
-                }
+        for (Object key: coursesTaught.keySet()) {
+            if (coursesTaught.get(key).equals(tokens[1])) {
+                coursesTaught.remove(key);
+                coursesTaught.put(tokens[0], tokens[1]);
+                break;
             }
         }
-        System.out.println("Course , Instructor");
-        for (Object key :  coursesTaught.keySet()) {
-            System.out.println(key + "      , " + coursesTaught.get(key));
-        }
-
         processRequests();
     }
 
@@ -220,13 +200,12 @@ public class Scratchpad {
                     String grade = calculateGrade();
                     student.addCourseRecord(courseID, grade, cycle);
 
-                    String recordsFile = "./src/MainApp/Records.csv";
+                    String recordsFile = "./src/fxapp/Records.csv";
 
                     try {
                         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, true));
-
                         String record = studentID + "," + courseID + "," + grade + ","
-                                + Integer.toString(year) + "," + Integer.toString(cycle % 4 + 1) + "\n";
+                                + Integer.toString(year) + "," + Integer.toString(term) + "\n";
                         System.out.print(record);
                         fileWriter.write(record);
                         fileWriter.close();
@@ -238,6 +217,7 @@ public class Scratchpad {
                 }
             }
         }
+        System.out.print("Done Processing");
         cycle++;
     }
 
@@ -254,6 +234,14 @@ public class Scratchpad {
         } else {
             return "A";
         }
+    }
+
+    public int getCycle() {
+        return cycle;
+    }
+
+    public void setCycle(int cycle) {
+        this.cycle = cycle;
     }
 
     public HashMap<String, Course> getCourses() {
@@ -286,5 +274,25 @@ public class Scratchpad {
 
     public void setStudents(HashMap<String, Student> students) {
         this.students = students;
+    }
+
+    public HashMap<String, String> getCoursesTaught() {
+        return coursesTaught;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public String[] getTerms() {
+        return terms;
+    }
+
+    public int getTerm() {
+        return term;
+    }
+
+    public HashMap<String, Integer> getCoursesRequested() {
+        return coursesRequested;
     }
 }
