@@ -271,11 +271,10 @@ public class ReassignInstructorController extends Controller {
                 alert.setContentText("Enter valid Course ID and Instructor ID");
                 alert.showAndWait();
                 return;
-            } else if (!myScratchpad.getCoursesTaught().keySet().contains(tokens[0])
-                    && coursesTaughtData.size() != 0) {
+            } else if (myScratchpad.getCoursesTaught().keySet().contains(tokens[0])) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("An Error Occurred!");
-                alert.setContentText("You can only reassign instructors already assigned");
+                alert.setContentText("Class is already taught by an instructor");
                 alert.showAndWait();
                 return;
             } else {
