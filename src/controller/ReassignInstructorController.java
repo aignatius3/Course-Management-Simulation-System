@@ -265,7 +265,7 @@ public class ReassignInstructorController extends Controller {
                 return;
             } else {
                 myScratchpad.reassignInstructor(s);
-                myApp.load(new File("../view/RequestResults.fxml"));
+                myApp.load(new File("/view/RequestResults.fxml"));
             }
         }
     }
@@ -273,7 +273,7 @@ public class ReassignInstructorController extends Controller {
     @FXML
     public void handleNoReassignPressed() {
         myScratchpad.processRequests();
-        myApp.load(new File("../view/RequestResults.fxml"));
+        myApp.load(new File("/view/RequestResults.fxml"));
     }
 
 }

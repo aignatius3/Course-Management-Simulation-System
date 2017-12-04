@@ -24,13 +24,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.scratchpad = new Scratchpad();
         window = primaryStage;
-        load(new File("../view/Initialize.fxml"));
+        load(new File("/view/Initialize.fxml"));
     }
 
     public void load(File file) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("../view/" + file.getName()));
+            loader.setLocation(Main.class.getResource("/view/" + file.getName()));
             AnchorPane sceneLayout = loader.load();
 
             Controller controller = loader.getController();

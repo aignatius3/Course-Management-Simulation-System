@@ -81,7 +81,8 @@ public class Scratchpad implements Serializable {
         try {
             String line = "";
             // Create the file reader
-            fileReader = new BufferedReader(new FileReader(fileToParse));
+            InputStreamReader isr = new InputStreamReader(getClass().getResourceAsStream(inputFileName));
+            fileReader = new BufferedReader(isr);
 
             // Read the file line by line
             while ((line = fileReader.readLine()) != null) {
@@ -127,7 +128,7 @@ public class Scratchpad implements Serializable {
     }
 
     public void loadRequests() {
-        String fileToParse = "./TestCases/test_case1/requests"+ Integer.toString(cycle) + ".csv";
+        String fileToParse = "/TestCases/test_case1/requests"+ Integer.toString(cycle) + ".csv";
         BufferedReader fileReader = null;
 
         // Delimiter used in CSV file
@@ -135,7 +136,8 @@ public class Scratchpad implements Serializable {
         try {
             String line = "";
             // Create the file reader
-            fileReader = new BufferedReader(new FileReader(fileToParse));
+            InputStreamReader isr = new InputStreamReader(getClass().getResourceAsStream(fileToParse));
+            fileReader = new BufferedReader(isr);
 
             // Read the file line by line
             while ((line = fileReader.readLine()) != null) {

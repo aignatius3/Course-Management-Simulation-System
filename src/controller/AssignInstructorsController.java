@@ -172,7 +172,7 @@ public class AssignInstructorsController extends Controller {
     @FXML
     public void handleDonePressed() {
         myScratchpad.loadRequests();
-        myApp.load(new File("../view/ReassignInstructor.fxml"));
+        myApp.load(new File("/view/ReassignInstructor.fxml"));
     }
 
 }

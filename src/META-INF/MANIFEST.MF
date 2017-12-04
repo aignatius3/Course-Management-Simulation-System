@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: out.production.Course-Management-Simulation-System.fxapp.M
+ ain.class
+Main-Class: fxapp.Main
+

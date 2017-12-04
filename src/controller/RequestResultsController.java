@@ -83,7 +83,7 @@ public class RequestResultsController extends Controller {
     public void handlePauseClicked() {
         myScratchpad.nextTerm();
         Main.saveScratchpadToBinary();
-        myApp.load(new File("../view/Initialize.fxml"));
+        myApp.load(new File("/view/Initialize.fxml"));
 
     }
 
@@ -91,7 +91,7 @@ public class RequestResultsController extends Controller {
     public void handleContinueClicked() {
         myScratchpad.nextTerm();
         Main.saveScratchpadToBinary();
-        myApp.load(new File("../view/AssignInstructors.fxml"));
+        myApp.load(new File("/view/AssignInstructors.fxml"));
 
     }
 }
