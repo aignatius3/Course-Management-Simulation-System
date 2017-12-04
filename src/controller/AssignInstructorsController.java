@@ -199,7 +199,7 @@ public class AssignInstructorsController extends Controller {
 
         if (course == null || instructor == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("An Error Occured!");
+            alert.setTitle("An Error Occurred!");
             alert.setContentText("Please select a Course AND an Instructor");
             alert.showAndWait();
             return;
@@ -215,6 +215,13 @@ public class AssignInstructorsController extends Controller {
 
     @FXML
     public void handleDonePressed() {
+        if (instructorData.size() != 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occurred!");
+            alert.setContentText("All Instructors must be assigned to a course");
+            alert.showAndWait();
+            return;
+        }
         myScratchpad.loadRequests();
         myApp.load(new File("/view/ReassignInstructor.fxml"));
     }

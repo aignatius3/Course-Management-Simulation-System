@@ -174,9 +174,9 @@ public class Scratchpad implements Serializable {
         }
         if (invalidRequests) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("An Error Occured!");
-            alert.setContentText("A request contains invalid CourseIDs and/or StudentIDs." +
-                    "This requests will be ignored.");
+            alert.setTitle("An Error Occurred!");
+            alert.setContentText("Some requests contains invalid CourseIDs and/or StudentIDs." +
+                    "These requests will be ignored.");
             alert.showAndWait();
             return;
         }

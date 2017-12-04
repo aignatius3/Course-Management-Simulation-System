@@ -259,7 +259,7 @@ public class ReassignInstructorController extends Controller {
             String[] tokens = s.split(",");
             if (tokens.length != 2) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("An Error Occured!");
+                alert.setTitle("An Error Occurred!");
                 alert.setContentText("Enter as prompted");
                 alert.showAndWait();
                 return;
@@ -267,14 +267,14 @@ public class ReassignInstructorController extends Controller {
             if (!myScratchpad.getCourses().keySet().contains(tokens[0]) ||
                     !myScratchpad.getInstructors().keySet().contains(tokens[1])) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("An Error Occured!");
+                alert.setTitle("An Error Occurred!");
                 alert.setContentText("Enter valid Course ID and Instructor ID");
                 alert.showAndWait();
                 return;
             } else if (!myScratchpad.getCoursesTaught().keySet().contains(tokens[0])
                     && coursesTaughtData.size() != 0) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("An Error Occured!");
+                alert.setTitle("An Error Occurred!");
                 alert.setContentText("You can only reassign instructors already assigned");
                 alert.showAndWait();
                 return;
