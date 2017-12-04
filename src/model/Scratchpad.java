@@ -168,6 +168,9 @@ public class Scratchpad implements Serializable {
 
     public void reassignInstructor(String reassignment) {
         String[] tokens = reassignment.split(",");
+        if (coursesTaught.keySet().size() == 0) {
+            coursesTaught.put(tokens[0], tokens[1]);
+        }
         for (Object key: coursesTaught.keySet()) {
             if (coursesTaught.get(key).equals(tokens[1])) {
                 coursesTaught.remove(key);

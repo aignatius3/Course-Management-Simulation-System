@@ -15,6 +15,8 @@ import model.Weka;
 
 import java.io.File;
 
+import static jdk.nashorn.internal.objects.NativeMath.round;
+
 /**
  * Created by Ashwin Ignatius on 12/3/2017.
  */
@@ -32,6 +34,18 @@ public class RequestResultsController extends Controller {
     private TableColumn resultCol;
 
     private ObservableList<Request> requestsData = FXCollections.observableArrayList();
+
+    @FXML
+    private Label numRequests;
+
+    @FXML
+    private Label grantedRequests;
+
+    @FXML
+    private Label requestsDenied1;
+
+    @FXML
+    private Label requestsDenied2;
 
     public void initialize() {
         this.myScratchpad = Main.getScratchpad();
@@ -78,6 +92,34 @@ public class RequestResultsController extends Controller {
         }
         requestResultsTable.setItems(requestsData);
         requestResultsTable.getColumns().addAll(courseNumCol, studentNumCol, resultCol);
+
+        int totalRequests = myScratchpad.getRequests().size();
+        int requestsGranted  = 0;
+        int deniedRequests1 = 0;
+        int deniedRequests2 = 0;
+        for (Request request : myScratchpad.getRequests()) {
+            if (request.getResult().equals("Granted")) {
+                requestsGranted++;
+            } else if (request.getResult().equals("Denied - Instructor not assigned to course")) {
+                deniedRequests1++;
+            } else {
+                deniedRequests2++;
+            }
+        }
+
+        numRequests.setText(numRequests.getText() + " : " + Integer.toString(totalRequests));
+        grantedRequests.setText(grantedRequests.getText() + " : " +
+                Integer.toString(requestsGranted) + " (" +
+                Double.toString(Math.round((double) requestsGranted * 100 / totalRequests * 100) / 100)
+                + "%)");
+        requestsDenied1.setText(requestsDenied1.getText() + " : " +
+                Integer.toString(deniedRequests1) + " (" +
+                Double.toString(Math.round((double) deniedRequests1 * 100 / totalRequests * 100) / 100)
+                + "%)");
+        requestsDenied2.setText(requestsDenied2.getText() + " : " +
+                Integer.toString(deniedRequests2) + " (" +
+                Double.toString(Math.round((double) deniedRequests2 * 100 / totalRequests * 100) / 100)
+                + "%)");
     }
 
     @FXML

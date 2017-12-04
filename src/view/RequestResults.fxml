@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestResultsController">
+<AnchorPane prefHeight="598.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestResultsController">
    <children>
       <TableView fx:id="requestResultsTable" layoutX="85.0" layoutY="100.0" prefHeight="200.0" prefWidth="431.0" />
       <Label fx:id="termLabel" layoutX="262.0" layoutY="38.0" textFill="#b3b83d">
@@ -14,7 +14,27 @@
             <Font name="Gill Sans MT" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="85.0" layoutY="329.0" mnemonicParsing="false" onAction="#handlePauseClicked" text="Pause Simulation" />
-      <Button layoutX="330.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleContinueClicked" text="Continue Simulation" />
+      <Button layoutX="88.0" layoutY="527.0" mnemonicParsing="false" onAction="#handlePauseClicked" text="Pause Simulation" />
+      <Button layoutX="330.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleContinueClicked" text="Continue Simulation" />
+      <Label fx:id="numRequests" layoutX="85.0" layoutY="306.0" prefHeight="43.0" prefWidth="431.0" text="Number of Requests">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="grantedRequests" layoutX="85.0" layoutY="349.0" prefHeight="43.0" prefWidth="431.0" text="Requests Granted">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="requestsDenied1" layoutX="85.0" layoutY="392.0" prefHeight="43.0" prefWidth="431.0" text="Requests Denied - No Instructor">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="requestsDenied2" layoutX="85.0" layoutY="435.0" prefHeight="43.0" prefWidth="431.0" text="Requests Denied - Prerequisite Issues">
+         <font>
+            <Font name="Gill Sans MT" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
