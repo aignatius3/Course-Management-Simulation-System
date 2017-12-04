@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.util.Callback;
 import model.Instructor;
 import model.Request;
+import model.Weka;
 
 import java.io.File;
 
@@ -81,6 +82,13 @@ public class RequestResultsController extends Controller {
 
     @FXML
     public void handlePauseClicked() {
+        try {
+            Weka weka = new Weka();
+            String s = weka.generateApropri();
+            System.out.println(s);
+        } catch (Exception e) {
+        }
+
         myScratchpad.nextTerm();
         Main.saveScratchpadToBinary();
         myApp.load(new File("/view/Initialize.fxml"));
@@ -89,6 +97,13 @@ public class RequestResultsController extends Controller {
 
     @FXML
     public void handleContinueClicked() {
+        try {
+            Weka weka = new Weka();
+            String s = weka.generateApropri();
+            System.out.println(s);
+        } catch (Exception e) {
+        }
+
         myScratchpad.nextTerm();
         Main.saveScratchpadToBinary();
         myApp.load(new File("/view/AssignInstructors.fxml"));

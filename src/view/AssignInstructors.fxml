@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AssignInstructorsController">
+<AnchorPane prefHeight="400.0" prefWidth="1141.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AssignInstructorsController">
    <children>
-      <Label fx:id="termLabel" layoutX="233.0" layoutY="32.0" prefHeight="43.0" prefWidth="211.0" textFill="#b3b83d">
+      <Label fx:id="termLabel" layoutX="444.0" layoutY="35.0" prefHeight="43.0" prefWidth="211.0" textFill="#b3b83d">
          <font>
             <Font name="Gill Sans MT" size="36.0" />
          </font>
@@ -23,11 +23,13 @@
          <font>
             <Font name="Gill Sans MT" size="25.0" />
          </font></Label>
-      <Button layoutX="562.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleAssignPressed" text="Assign" />
-      <Button layoutX="693.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleDonePressed" text="Done" />
-      <Label layoutX="22.0" layoutY="346.0" prefHeight="24.0" prefWidth="221.0" text="Suggested Courses to Fill:">
+      <Button layoutX="444.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleAssignPressed" text="Assign" />
+      <Button layoutX="585.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleDonePressed" text="Done" />
+      <TableView fx:id="courseSuggestionsTable" layoutX="797.0" layoutY="128.0" prefHeight="200.0" prefWidth="293.0" />
+      <Label layoutX="848.0" layoutY="89.0" text="Suggested Courses">
          <font>
-            <Font name="Gill Sans MT" size="20.0" />
-         </font></Label>
+            <Font name="Gill Sans MT" size="25.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

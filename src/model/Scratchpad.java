@@ -29,6 +29,8 @@ public class Scratchpad implements Serializable {
 
     private HashMap<String, Integer> coursesRequested;
 
+    private List<String> courseSuggestions;
+
     public Scratchpad() {
         this.courses = new HashMap<>();
         this.programs = new HashMap<>();
@@ -41,6 +43,7 @@ public class Scratchpad implements Serializable {
         this.terms = new String[]{"Winter", "Spring", "Summer", "Fall"};
         this.requests = new ArrayList<>();
         this.coursesRequested = new HashMap<>();
+        this.courseSuggestions = new ArrayList<>();
     }
 
     private void processFileContents(String inputFileName, String[] tokens) {
@@ -249,6 +252,15 @@ public class Scratchpad implements Serializable {
     }
 
     public void nextTerm() {
+        courseSuggestions = new ArrayList<>();
+        for (Object key : coursesRequested.keySet()) {
+            for (Object key2 : courses.keySet()) {
+                if (courses.get(key2).getPrereqs().contains(key)) {
+                    courseSuggestions.add((String) key2);
+                }
+            }
+        }
+
         cycle = cycle + 1;
         requests = new ArrayList();
         coursesTaught = new HashMap();
@@ -269,6 +281,7 @@ public class Scratchpad implements Serializable {
         this.terms = new String[]{"Winter", "Spring", "Summer", "Fall"};
         this.requests = new ArrayList<>();
         this.coursesRequested = new HashMap<>();
+        this.courseSuggestions = new ArrayList<>();
 
         String recordsFile = "Records.csv";
         try {
@@ -343,5 +356,13 @@ public class Scratchpad implements Serializable {
 
     public List<Request> getRequests() {
         return requests;
+    }
+
+    public List<String> getCourseSuggestions() {
+        return courseSuggestions;
+    }
+
+    public void setCourseSuggestions(List<String> courseSuggestions) {
+        this.courseSuggestions = courseSuggestions;
     }
 }

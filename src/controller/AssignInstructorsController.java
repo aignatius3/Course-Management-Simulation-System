@@ -51,6 +51,16 @@ public class AssignInstructorsController extends Controller {
 
     private ObservableList<Instructor> instructorData = FXCollections.observableArrayList();
 
+    @FXML
+    private TableView courseSuggestionsTable;
+
+    private TableColumn courseSugNumCol;
+
+    private TableColumn courseSugNameCol;
+
+    private ObservableList<Course> courseSugData = FXCollections.observableArrayList();
+
+
     public void initialize() {
         this.myScratchpad = Main.getScratchpad();
         this.cycle = myScratchpad.getCycle();
@@ -149,6 +159,37 @@ public class AssignInstructorsController extends Controller {
         }
         instructorTable.setItems(instructorData);
         instructorTable.getColumns().addAll(instructorNumCol,instructorNameCol, instructorOHCol, instructorEmailCol);
+
+        courseSugNumCol = new TableColumn("ID");
+        courseSugNameCol = new TableColumn("Name");
+
+        courseSugNumCol.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                    @Override
+                    public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
+                        Course course = (Course) dataFeatures.getValue();
+                        return new SimpleIntegerProperty(Integer.parseInt(course.getCourseID()));
+                    }
+                }
+        );
+
+        courseSugNameCol.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                    @Override
+                    public ObservableValue call(TableColumn.CellDataFeatures dataFeatures) {
+                        Course course = (Course) dataFeatures.getValue();
+                        return new SimpleStringProperty(course.getShortName());
+                    }
+                }
+        );
+
+        courseSugData = FXCollections.observableArrayList();
+        for (String courseID : myScratchpad.getCourseSuggestions()) {
+            courseSugData.add(myScratchpad.getCourses().get(courseID));
+        }
+        courseSuggestionsTable.setItems(courseSugData);
+        courseSuggestionsTable.getColumns().addAll(courseSugNumCol, courseSugNameCol);
+
     }
 
     @FXML
@@ -167,6 +208,9 @@ public class AssignInstructorsController extends Controller {
         myScratchpad.assignInstructors(course, instructor);
         courseData.remove(course);
         instructorData.remove(instructor);
+        if (courseSugData.contains(course)) {
+            courseSugData.remove(course);
+        }
     }
 
     @FXML

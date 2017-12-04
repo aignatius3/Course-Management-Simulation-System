@@ -19,7 +19,6 @@ public class Main extends Application {
     private static Scratchpad scratchpad;
     private static final File scratchpadFile = new File("ScratchpadSaveState.dat");
 
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.scratchpad = new Scratchpad();

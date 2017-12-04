@@ -52,15 +52,15 @@ public class Weka {
             writer.write("@ATTRIBUTE " + "6" + " {true,false}\n");
             writer.write("@ATTRIBUTE " + "8" + " {true,false}\n");
 
-            /*for(int i = 0; i < courses.size(); i++) {
+            for(int i = 0; i < courses.size(); i++) {
                 writer.write("@ATTRIBUTE " + courses.get(i).getCourseID() + " {true,false}\n");
-            }*/
+            }
             writer.write("@DATA\n");    
             for (int i = 0; i < students.size(); i++) {
-                /*for (int j = 0; j < courses.size() - 1; j++) {
+                for (int j = 0; j < courses.size() - 1; j++) {
                     writer.write(data.get(i).get(courses.get(j).getCourseID()) + ",");
                 }
-                    writer.write(data.get(i).get(courses.get(courses.size() - 1).getCourseID()) + "\n");*/
+                    writer.write(data.get(i).get(courses.get(courses.size() - 1).getCourseID()) + "\n");
                 writer.write(data.get(i).get("2") + ",");
                 writer.write(data.get(i).get("5") + ",");
                 writer.write(data.get(i).get("6") + ",");
