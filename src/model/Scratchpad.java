@@ -3,6 +3,8 @@ package model;
  * Created by Ashwin Ignatius on 11/4/2017.
  */
 
+import javafx.scene.control.Alert;
+
 import java.io.*;
 import java.util.*;
 
@@ -133,6 +135,7 @@ public class Scratchpad implements Serializable {
     public void loadRequests() {
         String fileToParse = "/TestCases/test_case1/requests"+ Integer.toString(cycle) + ".csv";
         BufferedReader fileReader = null;
+        boolean invalidRequests = false;
 
         // Delimiter used in CSV file
         final String DELIMITER = ",";
@@ -146,12 +149,17 @@ public class Scratchpad implements Serializable {
             while ((line = fileReader.readLine()) != null) {
                 // Get all tokens available in line
                 String[] tokens = line.split(DELIMITER);
+                if (courses.containsKey(tokens[1]) &&
+                        students.containsKey(tokens[0])) {
+                    requests.add(new Request(tokens[0], tokens[1]));
 
-                requests.add(new Request(tokens[0], tokens[1]));
-                if (coursesRequested.containsKey(tokens[1])) {
-                    coursesRequested.put(tokens[1], coursesRequested.get(tokens[1]) + 1);
+                    if (coursesRequested.containsKey(tokens[1])) {
+                        coursesRequested.put(tokens[1], coursesRequested.get(tokens[1]) + 1);
+                    } else {
+                        coursesRequested.put(tokens[1], 1);
+                    }
                 } else {
-                    coursesRequested.put(tokens[1], 1);
+                    invalidRequests = true;
                 }
             }
 
@@ -164,20 +172,19 @@ public class Scratchpad implements Serializable {
                 e.printStackTrace();
             }
         }
+        if (invalidRequests) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occured!");
+            alert.setContentText("A request contains invalid CourseIDs and/or StudentIDs." +
+                    "This requests will be ignored.");
+            alert.showAndWait();
+            return;
+        }
     }
 
     public void reassignInstructor(String reassignment) {
         String[] tokens = reassignment.split(",");
-        if (coursesTaught.keySet().size() == 0) {
-            coursesTaught.put(tokens[0], tokens[1]);
-        }
-        for (Object key: coursesTaught.keySet()) {
-            if (coursesTaught.get(key).equals(tokens[1])) {
-                coursesTaught.remove(key);
-                coursesTaught.put(tokens[0], tokens[1]);
-                break;
-            }
-        }
+        coursesTaught.put(tokens[0], tokens[1]);
         processRequests();
     }
 
@@ -195,20 +202,22 @@ public class Scratchpad implements Serializable {
                 for (String id : prereqs) {
                     boolean granted2 = false;
                     boolean granted3 = false;
-                    for (HashMap record : student.getRecords()) {
+                    for (int i = 0; i < student.getRecords().size() - 1; i++) {
+                        HashMap record = student.getRecords().get(i);
                         if (record.containsKey(id)) {
                             granted3 = true;
                             if (record.get(id) == "A" || record.get(id) == "B" || record.get(id) == "C") {
                                      granted2 = true;
-                                 } else {
-                                     request.setResult("Denied - Did not pass prerequisite");
-                                 }
+                            }
                         }
                     }
-                    if (!granted2) {
-                        if (!granted3) {
-                            request.setResult("Denied - Missing Prerequisite");
-                        }
+                    if (!granted3) {
+                        request.setResult("Denied - Missing Prereq(s):" +
+                                getMissingPrereqs(student, courses.get(courseID)));
+                        granted = granted3;
+                        break;
+                    } else if (!granted2) {
+                        request.setResult("Denied - Did not pass prerequisite");
                         granted = granted2;
                         break;
                     }
@@ -252,6 +261,23 @@ public class Scratchpad implements Serializable {
         } else {
             return "A";
         }
+    }
+
+    public String getMissingPrereqs(Student student, Course course) {
+        String s = "";
+        for (String prereqID : course.getPrereqs()) {
+            boolean hasPrereq = false;
+            for (int i = 0; i < student.getRecords().size() - 1; i++) {
+                HashMap record = student.getRecords().get(i);
+                if (record.keySet().contains(prereqID)) {
+                    hasPrereq = true;
+                }
+            }
+            if (!hasPrereq) {
+                s = s + " " + prereqID + ",";
+            }
+        }
+        return s.substring(0, s.length() - 1);
     }
 
     public void nextTerm() {
