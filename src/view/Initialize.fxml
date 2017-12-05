@@ -5,22 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InitializeController">
+<AnchorPane prefHeight="182.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InitializeController">
    <children>
-      <Label layoutX="51.0" layoutY="34.0" text="Course Management Simulation System" textFill="#b3b83d">
+      <Label layoutX="14.0" layoutY="35.0" text="Course Management Simulation System" textFill="#b3b83d">
          <font>
             <Font name="Gill Sans MT" size="31.0" />
          </font>
       </Label>
-      <Label layoutX="243.0" layoutY="123.0" text="Select Role">
-         <font>
-            <Font name="Gill Sans MT" size="25.0" />
-         </font>
-      </Label>
-      <Button fx:id="adminButton" layoutX="85.0" layoutY="181.0" mnemonicParsing="false" onAction="#handleAdminPressed" opacity="0.93" text="Administrator" />
-      <Button fx:id="instButton" layoutX="250.0" layoutY="181.0" mnemonicParsing="false" text="Instructor" />
-      <Button fx:id="studentButton" layoutX="372.0" layoutY="181.0" mnemonicParsing="false" text="Student" />
-      <Button fx:id="resumeSim" layoutX="85.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleResumePressed" opacity="0.0" text="Resume Simulation" />
-      <Button fx:id="restartSim" layoutX="85.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleRestartSimPressed" opacity="0.0" text="Start New Simulation" />
+      <Button fx:id="resumeSim" layoutX="263.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleResumePressed" text="Resume Simulation" />
+      <Button fx:id="restartSim" layoutX="66.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleRestartSimPressed" text="Start New Simulation" />
    </children>
 </AnchorPane>

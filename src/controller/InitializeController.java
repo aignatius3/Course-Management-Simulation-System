@@ -25,12 +25,6 @@ public class InitializeController extends Controller {
     private Button restartSim;
 
     @FXML
-    public void handleAdminPressed() {
-        resumeSim.setOpacity(1.0);
-        restartSim.setOpacity(1.0);
-    }
-
-    @FXML
     public void handleRestartSimPressed() {
         String[] necessaryFiles = {"courses.csv", "instructors.csv", "students.csv", "programs.csv",
             "listings.csv", "prereqs.csv", "requests0.csv"};
