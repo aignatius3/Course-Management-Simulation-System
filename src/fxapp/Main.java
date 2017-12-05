@@ -7,9 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.File;
-import java.io.IOException;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 
 /**
  * Created by Ashwin Ignatius on 11/4/2017.
@@ -56,6 +61,10 @@ public class Main extends Application {
         Persistence p = new Persistence(scratchpad);
         p.loadFromBinary(scratchpadFile);
         scratchpad = (Scratchpad) p.getBacking();
+    }
+
+    public Stage getWindow() {
+        return window;
     }
 
     public static void main(String[] args) {

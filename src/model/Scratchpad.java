@@ -33,6 +33,8 @@ public class Scratchpad implements Serializable {
 
     private List<String> courseSuggestions;
 
+    private String testCaseDirectory;
+
     public Scratchpad() {
         this.courses = new HashMap<>();
         this.programs = new HashMap<>();
@@ -46,6 +48,7 @@ public class Scratchpad implements Serializable {
         this.requests = new ArrayList<>();
         this.coursesRequested = new HashMap<>();
         this.courseSuggestions = new ArrayList<>();
+        this.testCaseDirectory = "";
     }
 
     private void processFileContents(String inputFileName, String[] tokens) {
@@ -86,7 +89,8 @@ public class Scratchpad implements Serializable {
         try {
             String line = "";
             // Create the file reader
-            InputStreamReader isr = new InputStreamReader(getClass().getResourceAsStream(inputFileName));
+            InputStreamReader isr = new InputStreamReader(
+                    new FileInputStream(inputFileName));
             fileReader = new BufferedReader(isr);
 
             // Read the file line by line
@@ -133,7 +137,8 @@ public class Scratchpad implements Serializable {
     }
 
     public void loadRequests() {
-        String fileToParse = "/TestCases/test_case1/requests"+ Integer.toString(cycle) + ".csv";
+        String fileToParse = testCaseDirectory.replaceAll("\\\\", "/")
+                 + "/requests" + Integer.toString(cycle) + ".csv";
         BufferedReader fileReader = null;
         boolean invalidRequests = false;
 
@@ -142,7 +147,7 @@ public class Scratchpad implements Serializable {
         try {
             String line = "";
             // Create the file reader
-            InputStreamReader isr = new InputStreamReader(getClass().getResourceAsStream(fileToParse));
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(fileToParse));
             fileReader = new BufferedReader(isr);
 
             // Read the file line by line
@@ -311,7 +316,7 @@ public class Scratchpad implements Serializable {
         this.requests = new ArrayList<>();
         this.coursesRequested = new HashMap<>();
         this.courseSuggestions = new ArrayList<>();
-
+        this.testCaseDirectory = "";
         String recordsFile = "Records.csv";
         try {
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, false));
@@ -393,5 +398,13 @@ public class Scratchpad implements Serializable {
 
     public void setCourseSuggestions(List<String> courseSuggestions) {
         this.courseSuggestions = courseSuggestions;
+    }
+
+    public String getTestCaseDirectory() {
+        return testCaseDirectory;
+    }
+
+    public void setTestCaseDirectory(String testCaseDirectory) {
+        this.testCaseDirectory = testCaseDirectory;
     }
 }

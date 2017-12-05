@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.control.Alert;
+
 import java.io.*;
 
 /**
@@ -27,8 +29,11 @@ public class Persistence {
             backing = ois.readObject();
             ois.close();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Failed to load file");
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occurred!");
+            alert.setContentText("No Previous Simulation, Start a New Simulation");
+            alert.showAndWait();
+            return;
         }
     }
 

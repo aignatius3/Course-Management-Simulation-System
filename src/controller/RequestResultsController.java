@@ -12,6 +12,7 @@ import javafx.util.Callback;
 import model.Instructor;
 import model.Request;
 import model.Weka;
+import java.text.DecimalFormat;
 
 import java.io.File;
 
@@ -46,6 +47,8 @@ public class RequestResultsController extends Controller {
 
     @FXML
     private Label requestsDenied2;
+
+    private static DecimalFormat df2 = new DecimalFormat(".##");
 
     public void initialize() {
         this.myScratchpad = Main.getScratchpad();
@@ -110,15 +113,15 @@ public class RequestResultsController extends Controller {
         numRequests.setText(numRequests.getText() + " : " + Integer.toString(totalRequests));
         grantedRequests.setText(grantedRequests.getText() + " : " +
                 Integer.toString(requestsGranted) + " (" +
-                Double.toString(Math.round((double) requestsGranted * 100 / totalRequests * 100) / 100)
+                Double.toString(Double.parseDouble(df2.format((double) requestsGranted / totalRequests * 100)))
                 + "%)");
         requestsDenied1.setText(requestsDenied1.getText() + " : " +
                 Integer.toString(deniedRequests1) + " (" +
-                Double.toString(Math.round((double) deniedRequests1 * 100 / totalRequests * 100) / 100)
+                Double.toString(Double.parseDouble(df2.format((double) deniedRequests1 / totalRequests * 100)))
                 + "%)");
         requestsDenied2.setText(requestsDenied2.getText() + " : " +
                 Integer.toString(deniedRequests2) + " (" +
-                Double.toString(Math.round((double) deniedRequests2 * 100 / totalRequests * 100) / 100)
+                Double.toString(Double.parseDouble(df2.format((double) deniedRequests2 / totalRequests * 100)))
                 + "%)");
     }
 
