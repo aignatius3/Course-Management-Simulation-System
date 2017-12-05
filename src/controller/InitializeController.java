@@ -70,6 +70,10 @@ public class InitializeController extends Controller {
     @FXML
     public void handleResumePressed() {
         Main.loadScratchpadFromBinary();
-        myApp.load(new File("/view/AssignInstructors.fxml"));
+        if (myScratchpad.getCycle() == 0) {
+            myApp.load(new File("/view/Initialize.fxml"));
+        } else {
+            myApp.load(new File("/view/AssignInstructors.fxml"));
+        }
     }
 }

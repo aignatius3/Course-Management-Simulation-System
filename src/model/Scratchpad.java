@@ -160,15 +160,17 @@ public class Scratchpad implements Serializable {
                 if (courses.containsKey(tokens[1]) &&
                         students.containsKey(tokens[0])) {
                     requests.add(new Request(tokens[0], tokens[1]));
-
-                    if (coursesRequested.containsKey(tokens[1])) {
-                        coursesRequested.put(tokens[1], coursesRequested.get(tokens[1]) + 1);
-                    } else {
-                        coursesRequested.put(tokens[1], 1);
+                    if (!alreadyTookandPassed(students.get(tokens[0]), tokens[1])) {
+                        if (coursesRequested.containsKey(tokens[1])) {
+                            coursesRequested.put(tokens[1], coursesRequested.get(tokens[1]) + 1);
+                        } else {
+                            coursesRequested.put(tokens[1], 1);
+                        }
                     }
                 } else {
                     invalidRequests = true;
                 }
+
             }
 
         } catch (Exception e) {
@@ -183,7 +185,8 @@ public class Scratchpad implements Serializable {
         if (invalidRequests) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("An Error Occurred!");
-            alert.setContentText("Some requests contains invalid CourseIDs and/or StudentIDs." +
+            alert.setContentText("Some requests are invalid because of an invalid course id, an invalid student id," +
+                    "or the student has already taken and passed the course." +
                     "These requests will be ignored.");
             alert.showAndWait();
             return;
@@ -225,7 +228,7 @@ public class Scratchpad implements Serializable {
                         HashMap record = student.getRecords().get(i);
                         if (record.containsKey(id)) {
                             granted3 = true;
-                            if (record.get(id) == "A" || record.get(id) == "B" || record.get(id) == "C") {
+                            if (record.get(id).equals("A") || record.get(id).equals("B") || record.get(id).equals("C")) {
                                      granted2 = true;
                             }
                         }
@@ -300,12 +303,27 @@ public class Scratchpad implements Serializable {
         return s.substring(0, s.length() - 1);
     }
 
+    public boolean alreadyTookandPassed(Student student, String courseID) {
+        boolean temp = false;
+        for (int i = 0; i < student.getRecords().size(); i++) {
+            HashMap record = student.getRecords().get(i);
+            if (record.keySet().contains(courseID)) {
+                if (record.get(courseID).equals("A") || record.get(courseID).equals("B") || record.get(courseID).equals("C")) {
+                    temp = true;
+                }
+            }
+        }
+        return temp;
+    }
+
     public void nextTerm() {
         courseSuggestions = new ArrayList<>();
         for (Object key : coursesRequested.keySet()) {
             for (Object key2 : courses.keySet()) {
                 if (courses.get(key2).getPrereqs().contains(key)) {
-                    courseSuggestions.add((String) key2);
+                    if (!courseSuggestions.contains(key)) {
+                        courseSuggestions.add((String) key2);
+                    }
                 }
             }
         }

@@ -1,5 +1,6 @@
 package model;
 
+import fxapp.Main;
 import javafx.scene.control.Alert;
 
 import java.io.*;
