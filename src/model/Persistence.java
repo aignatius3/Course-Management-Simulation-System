@@ -19,8 +19,11 @@ public class Persistence {
             oos.writeObject(backing);
             oos.close();
         } catch (IOException e) {
-            System.out.println("Failed to save file");
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("An Error Occurred!");
+            alert.setContentText("Failed to Save File");
+            alert.showAndWait();
+            return;
         }
     }
 
@@ -31,7 +34,7 @@ public class Persistence {
         } catch (IOException | ClassNotFoundException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("An Error Occurred!");
-            alert.setContentText("No Previous Simulation, Start a New Simulation");
+            alert.setContentText("Failed to Load File");
             alert.showAndWait();
             return;
         }

@@ -35,6 +35,8 @@ public class Scratchpad implements Serializable {
 
     private String testCaseDirectory;
 
+    private boolean restartedSim;
+
     public Scratchpad() {
         this.courses = new HashMap<>();
         this.programs = new HashMap<>();
@@ -49,6 +51,7 @@ public class Scratchpad implements Serializable {
         this.coursesRequested = new HashMap<>();
         this.courseSuggestions = new ArrayList<>();
         this.testCaseDirectory = "";
+        this.restartedSim = false;
     }
 
     private void processFileContents(String inputFileName, String[] tokens) {
@@ -194,6 +197,17 @@ public class Scratchpad implements Serializable {
     }
 
     public void processRequests() {
+        if (restartedSim) {
+            String recordsFile = "Records.csv";
+            try {
+                BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, false));
+                fileWriter.write("");
+                fileWriter.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         for (Object key: students.keySet()) {
             students.get(key).getRecords().add(new HashMap<>());
         }
@@ -251,6 +265,7 @@ public class Scratchpad implements Serializable {
                 request.setResult("Denied - Instructor not assigned to course");
             }
         }
+        restartedSim = false;
     }
 
     public String calculateGrade() {
@@ -317,15 +332,7 @@ public class Scratchpad implements Serializable {
         this.coursesRequested = new HashMap<>();
         this.courseSuggestions = new ArrayList<>();
         this.testCaseDirectory = "";
-        String recordsFile = "Records.csv";
-        try {
-            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(recordsFile, false));
-            fileWriter.write("");
-            fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.restartedSim = true;
     }
 
     public int getCycle() {
